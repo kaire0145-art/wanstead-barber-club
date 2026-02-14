@@ -173,6 +173,37 @@ footer{
   section{padding:50px 15px;}
   iframe{height:250px;}
 }
+  /* Fix iOS date input styling */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  height: 56px;
+  padding: 14px 16px;
+
+  background: #1a1a1a;
+  color: white;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+
+/* Fix inner iOS date text alignment */
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  color: #bbb;
+}
+
+/* Remove iOS calendar icon background */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.7;
+}
 
 </style>
 </head>
