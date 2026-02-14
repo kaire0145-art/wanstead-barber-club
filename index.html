@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* RESET */
 *{margin:0; padding:0; box-sizing:border-box;}
 
 body{
@@ -56,16 +55,11 @@ header p{
   border-radius:50px;
   transition:0.3s;
   display:inline-block;
-  letter-spacing:1px;
 }
 
 .btn:hover{background:white; color:black;}
 
-/* SECTIONS */
-section{
-  padding:70px 20px;
-  text-align:center;
-}
+section{padding:70px 20px; text-align:center;}
 
 h2{
   font-family:'Playfair Display',serif;
@@ -85,15 +79,9 @@ h2{
   background:#1a1a1a;
   padding:25px;
   border-radius:10px;
-  transition:0.3s;
 }
 
-.card:hover{
-  transform:translateY(-5px);
-  background:#222;
-}
-
-/* BOOKING FORM */
+/* BOOKING */
 .booking-form{
   max-width:500px;
   margin:auto;
@@ -105,7 +93,7 @@ h2{
   width:100%;
   padding:14px;
   margin-bottom:12px;
-  border-radius:8px;
+  border-radius:10px;
   border:1px solid #333;
   background:#1a1a1a;
   color:white;
@@ -119,17 +107,26 @@ h2{
   border:none;
   font-weight:bold;
   font-size:16px;
-  border-radius:8px;
+  border-radius:10px;
   cursor:pointer;
-  transition:0.3s;
 }
 
-.booking-form button:hover{
-  background:white;
-  color:black;
+/* iOS DATE FIX */
+input[type="date"]{
+  appearance:none;
+  -webkit-appearance:none;
+  width:100%;
+  height:56px;
+  background:#1a1a1a;
+  color:white;
+  border-radius:10px;
+  border:1px solid #333;
 }
 
-/* MAP */
+input[type="date"]::-webkit-date-and-time-value{
+  text-align:left;
+}
+
 iframe{
   width:100%;
   height:300px;
@@ -137,7 +134,6 @@ iframe{
   border-radius:12px;
 }
 
-/* FOOTER */
 footer{
   background:#000;
   padding:25px;
@@ -145,83 +141,9 @@ footer{
   font-size:13px;
   color:#777;
 }
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  header h1{font-size:38px;}
-}
-
-@media(max-width:768px){
-  header h1{font-size:32px;}
-  header p{font-size:14px;}
-  section{padding:50px 10px;}
-}
-@media(max-width:480px){
-  header h1{font-size:26px;}
-  header p{font-size:13px;}
-  .btn{padding:14px 28px; font-size:14px;}
-  .booking-form{
-    padding:20px;
-    background:#141414;
-    border-radius:14px;
-  }
-  .booking-form input,
-  .booking-form select{
-    padding:14px;
-    border-radius:10px;
-  }
-  section{padding:50px 15px;}
-  iframe{height:250px;}
-}
-  /* Fix iOS date input styling */
-input[type="date"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  width: 100%;
-  height: 56px;
-  padding: 14px 16px;
-
-  background: #1a1a1a;
-  color: white;
-
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-}
-
-/* Fix inner iOS date text alignment */
-input[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
-  color: #bbb;
-}
-
-/* Remove iOS calendar icon background */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.7;
-}
-
 </style>
 </head>
-<script>
-const phoneInput = document.getElementById('phone');
 
-phoneInput.addEventListener('input', function (e) {
-  let value = e.target.value.replace(/\D/g, '');
-
-  if (value.length > 11) value = value.slice(0, 11);
-
-  if (value.length > 5) {
-    value = value.replace(/(\d{5})(\d{1,6})/, '$1 $2');
-  }
-
-  e.target.value = value;
-});
-</script>
 <body>
 
 <header>
@@ -233,99 +155,102 @@ phoneInput.addEventListener('input', function (e) {
 <section>
   <h2>Our Services</h2>
   <div class="services">
-    <div class="card">
-      <h3>Haircut</h3>
-      <p>Precision haircut tailored to your style.</p>
-    </div>
-    <div class="card">
-      <h3>Skin Fade</h3>
-      <p>Sharp and clean fade with smooth blending.</p>
-    </div>
-    <div class="card">
-      <h3>Beard Trim</h3>
-      <p>Professional beard shaping and lining.</p>
-    </div>
-    <div class="card">
-      <h3>Kids Cut</h3>
-      <p>Fresh cuts for the little gentlemen.</p>
-    </div>
+    <div class="card"><h3>Haircut</h3><p>Precision haircut tailored to your style.</p></div>
+    <div class="card"><h3>Skin Fade</h3><p>Sharp and clean fade with smooth blending.</p></div>
+    <div class="card"><h3>Beard Trim</h3><p>Professional beard shaping and lining.</p></div>
+    <div class="card"><h3>Kids Cut</h3><p>Fresh cuts for the little gentlemen.</p></div>
   </div>
 </section>
 
 <section id="booking">
-  <h2>Book Online</h2>
-  <div class="booking-form">
-
+<h2>Book Online</h2>
+<div class="booking-form">
 
 <form action="https://formsubmit.co/kaire0145@gmail.com" method="POST">
 
-  <!-- Email Settings -->
-  <input type="hidden" name="_subject" value="New Booking - Wanstead Barber Club">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_next" value="thanks.html">
+<div id="confirmationMessage" style="display:none;text-align:center;margin-bottom:15px;">
+  <p style="color:#d4af37;font-weight:600;">✅ Booking received!</p>
+  <p style="color:#ccc;font-size:14px;">We’ll contact you shortly.</p>
+</div>
 
-  <!-- Auto reply to customer -->
-  <input type="hidden" name="_autoresponse" 
-         value="Thank you for booking with Wanstead Barber Club. We have received your appointment request and will see you at your selected time. If you need to change anything, please call us on 07907187777.">
+<input type="hidden" name="_subject" value="New Booking - Wanstead Barber Club">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="thanks.html">
+<input type="hidden" name="_autoresponse"
+value="Thank you for booking with Wanstead Barber Club. We have received your appointment request and will contact you shortly.">
 
-  <input type="text" name="name" placeholder="Full Name" required>
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="email" name="email" placeholder="Email Address" required>
 
-  <!-- ADD EMAIL FIELD (Required for auto-reply) -->
-  <input type="email" name="email" placeholder="Email Address" required>
+<input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
 
-  <input type="tel" 
-         id="phone"
-         name="phone" 
-         placeholder="Phone Number" 
-         required>
+<select name="service" required>
+<option value="">Select Service</option>
+<option>Haircut</option>
+<option>Skin Fade</option>
+<option>Beard Trim</option>
+<option>Kids Cut</option>
+</select>
 
-  <select name="service" required>
-    <option value="">Select Service</option>
-    <option>Haircut</option>
-    <option>Skin Fade</option>
-    <option>Beard Trim</option>
-    <option>Kids Cut</option>
-  </select>
+<input type="date" id="date" name="date" required>
 
-  <input type="date" name="date" required>
+<select name="time" required>
+<option value="">Select Time</option>
+<option>10:00</option><option>10:30</option>
+<option>11:00</option><option>11:30</option>
+<option>12:00</option><option>12:30</option>
+<option>13:00</option><option>13:30</option>
+<option>14:00</option><option>14:30</option>
+<option>15:00</option><option>15:30</option>
+<option>16:00</option><option>16:30</option>
+<option>17:00</option><option>17:30</option>
+<option>18:00</option><option>18:30</option>
+</select>
 
-  <select name="time" required>
-    <option value="">Select Time</option>
-    <option>10:00</option><option>10:30</option>
-    <option>11:00</option><option>11:30</option>
-    <option>12:00</option><option>12:30</option>
-    <option>13:00</option><option>13:30</option>
-    <option>14:00</option><option>14:30</option>
-    <option>15:00</option><option>15:30</option>
-    <option>16:00</option><option>16:30</option>
-    <option>17:00</option><option>17:30</option>
-    <option>18:00</option><option>18:30</option>
-  </select>
-
-  <button type="submit">Confirm Booking</button>
-
+<button type="submit">Confirm Booking</button>
 </form>
 
-  </div>
+</div>
 </section>
 
 <section>
-  <h2>Customer Reviews</h2>
-  <iframe src="https://www.google.com/maps?q=48+High+Street+London+E11+2RJ&output=embed"></iframe>
+<h2>Customer Reviews</h2>
+<iframe src="https://www.google.com/maps?q=48+High+Street+London+E11+2RJ&output=embed"></iframe>
 </section>
 
 <section>
-  <h2>Visit Us</h2>
-  <p>48 High Street<br>London E11 2RJ</p>
-  <p>Open 10:00 AM – 7:00 PM</p>
-  <a href="tel:07907187777" class="btn">Call Now</a>
-  <br><br>
-  <a href="https://wa.me/447907187777" class="btn">Book via WhatsApp</a>
+<h2>Visit Us</h2>
+<p>48 High Street<br>London E11 2RJ</p>
+<p>Open 10:00 AM – 7:00 PM</p>
+<a href="tel:07907187777" class="btn">Call Now</a><br><br>
+<a href="https://wa.me/447907187777" class="btn">Book via WhatsApp</a>
 </section>
 
-<footer>
-  © 2026 Wanstead Barber Club
-</footer>
+<footer>© 2026 Wanstead Barber Club</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Phone auto-format
+  const phoneInput = document.getElementById("phone");
+  phoneInput.addEventListener("input", function () {
+    let value = this.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length > 5) value = value.replace(/(\d{5})(\d+)/, "$1 $2");
+    this.value = value;
+  });
+
+  // Lock date to today+
+  const dateInput = document.getElementById("date");
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.min = today;
+
+  // Confirmation message
+  const form = document.querySelector("form");
+  const msg = document.getElementById("confirmationMessage");
+  form.addEventListener("submit", () => msg.style.display = "block");
+});
+</script>
 
 </body>
 </html>
