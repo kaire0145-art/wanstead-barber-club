@@ -165,7 +165,10 @@ footer{
 <section id="booking">
 <h2>Book Online</h2>
 <div class="booking-form">
-
+<p id="closedMessage" style="display:none; color:#ff4d4d; text-align:center; margin-bottom:15px;">
+  ❌ Sorry, we are currently closed.<br>
+  Opening tomorrow at 10:00 AM.
+</p>
 <form action="https://formsubmit.co/kaire0145@gmail.com" method="POST">
 
 <div id="confirmationMessage" style="display:none;text-align:center;margin-bottom:15px;">
@@ -221,7 +224,15 @@ value="Thank you for booking with Wanstead Barber Club. We have received your ap
 <section>
 <h2>Visit Us</h2>
 <p>48 High Street<br>London E11 2RJ</p>
-<p>Open 10:00 AM – 7:00 PM</p>
+<div style="margin-top:15px; line-height:1.8;">
+  <p id="openStatus" style="font-weight:600; margin-bottom:10px;"></p>
+  <p><strong>Opening Times</strong></p>
+  <p>
+    Monday – Friday: 10:00 AM – 7:00 PM<br>
+    Saturday: 10:00 AM – 6:00 PM<br>
+    Sunday: 10:00 AM – 4:00 PM
+  </p>
+</div>
 <a href="tel:07907187777" class="btn">Call Now</a><br><br>
 <a href="https://wa.me/447907187777" class="btn">Book via WhatsApp</a>
 </section>
@@ -250,6 +261,64 @@ document.addEventListener("DOMContentLoaded", function () {
   const msg = document.getElementById("confirmationMessage");
   form.addEventListener("submit", () => msg.style.display = "block");
 });
+  // Disable late bookings on Sunday
+const timeSelect = document.querySelector('select[name="time"]');
+
+function updateSundayTimes() {
+  const selectedDate = new Date(dateInput.value);
+  if (isNaN(selectedDate)) return;
+
+  const day = selectedDate.getDay(); // 0 = Sunday
+
+  Array.from(timeSelect.options).forEach(option => {
+    if (!option.value) return;
+
+    if (day === 0 && option.value > "16:00") {
+      option.disabled = true;
+    } else {
+      option.disabled = false;
+    }
+  });
+}
+
+dateInput.addEventListener("change", updateSundayTimes);
+  const closedMessage = document.getElementById("closedMessage");
+
+function checkOpeningHours() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = Sunday
+  const hour = now.getHours();
+
+  let open = false;
+
+  if (day >= 1 && day <= 5) open = hour >= 10 && hour < 19;       // Mon–Fri
+  else if (day === 6) open = hour >= 10 && hour < 18;             // Saturday
+  else if (day === 0) open = hour >= 10 && hour < 16;             // Sunday
+
+  if (!open) {
+    closedMessage.style.display = "block";
+  }
+}
+
+checkOpeningHours();
+  const openStatus = document.getElementById("openStatus");
+
+function updateOpenStatus() {
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+
+  let open = false;
+
+  if (day >= 1 && day <= 5) open = hour >= 10 && hour < 19;
+  else if (day === 6) open = hour >= 10 && hour < 18;
+  else if (day === 0) open = hour >= 10 && hour < 16;
+
+  openStatus.textContent = open ? "🟢 Open Now" : "🔴 Closed";
+  openStatus.style.color = open ? "#2ecc71" : "#ff4d4d";
+}
+
+updateOpenStatus();
 </script>
 
 </body>
