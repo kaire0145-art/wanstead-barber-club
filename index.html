@@ -265,9 +265,9 @@ document.addEventListener("DOMContentLoaded", function () {
   dateInput.min = today;
 
   // Confirmation message
-  form.addEventListener("submit", () => {
-    msg.style.display = "block";
-  });
+  form.addEventListener("submit", function () {
+  msg.style.display = "block";
+});
 
   // Disable late Sunday bookings
   function updateSundayTimes() {
