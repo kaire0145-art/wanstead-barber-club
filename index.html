@@ -285,18 +285,38 @@ document.addEventListener("DOMContentLoaded", function () {
   dateInput.addEventListener("change", updateSundayTimes);
 
   // Closed message (current time)
-  function checkOpeningHours() {
-    const now = new Date();
-    const day = now.getDay();
-    const hour = now.getHours();
 
-    let open = false;
-    if (day >= 1 && day <= 5) open = hour >= 10 && hour < 19;
-    else if (day === 6) open = hour >= 10 && hour < 18;
-    else if (day === 0) open = hour >= 10 && hour < 16;
+  <script>
+function checkOpeningHours() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = Sunday
+  const hour = now.getHours();
 
-    if (!open) closedMessage.style.display = "block";
+  let open = false;
+  let openingText = "";
+
+  if (day >= 1 && day <= 5) { // Mon–Fri
+    if (hour < 10) openingText = "Opening today at 10:00 AM.";
+    else if (hour >= 19) openingText = "Opening tomorrow at 10:00 AM.";
+    else open = true;
+  } 
+  else if (day === 6) { // Saturday
+    if (hour < 10) openingText = "Opening today at 10:00 AM.";
+    else if (hour >= 18) openingText = "Opening tomorrow at 10:00 AM.";
+    else open = true;
+  } 
+  else if (day === 0) { // Sunday
+    if (hour < 10) openingText = "Opening today at 10:00 AM.";
+    else if (hour >= 16) openingText = "Opening tomorrow at 10:00 AM.";
+    else open = true;
   }
+
+  if (!open) {
+    closedMessage.style.display = "block";
+    closedMessage.innerHTML = `❌ Sorry, we are currently closed.<br>${openingText}`;
+  }
+}
+</script>
 
   // Open / Closed badge
   function updateOpenStatus() {
