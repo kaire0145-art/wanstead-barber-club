@@ -265,8 +265,15 @@ document.addEventListener("DOMContentLoaded", function () {
   dateInput.min = today;
 
   // Confirmation message
-  form.addEventListener("submit", () => {
-    msg.style.display = "block";
+  document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("form");
+  const msg = document.getElementById("confirmationMessage");
+
+  if (form && msg) {
+    form.addEventListener("submit", function () {
+      msg.style.display = "block";
+    });
+  }
   });
 
   // Disable late Sunday bookings
